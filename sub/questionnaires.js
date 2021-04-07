@@ -3,10 +3,8 @@
 var demo1 = {
   type: 'survey-text',
   questions: [
-    {prompt: "What is your unique Prolific ID?", name:'prolID'},
+    {prompt: "What is your university e-mail address? This is just to help us identify you for credit assignment", name:'ID'},
     {prompt: "What is your age in years?", name:'age'},
-    {prompt: "For statistical purposes, what is your weight (in lbs.; 1 lbs = 0.45kg = 0.07 stones)? Just type the number (e.g., if you weight 100 lbs just type 100).", name:'weight'},
-    {prompt: "For statistical purposes, what is your height (in feet; 1 foot = 0.3 meters)? Just type the number: If you are 5 foot 5 inches tall, type 5.5.", name:'height'},
     {prompt: "Please enter your date of birth", placeholder: "DD/MM/YYYY", name:'dob'},
     {prompt: "Please indicate your marital status (Single (never married), Married, Separated, Widowed, Other (if other please specify))", placeholder: "e.g., Single", name:'marital'},
     {prompt: "Please enter your first (native) language", placeholder: "English, French, Arabic, German, etc.", name:'natlang'},
@@ -15,10 +13,8 @@ var demo1 = {
   preamble: 'Welcome! Here are some questions about your background. Please answer the following demographic questions as honestly as possible. All of your responses are strictly confidential',
   on_finish: function(data){
     jsPsych.data.addProperties({
-      prolID:  JSON.parse(data.responses)['prolID'],
+      ID:  JSON.parse(data.responses)['ID'],
       age: JSON.parse(data.responses)['age'],
-      weight: JSON.parse(data.responses)['weight'],
-      height: JSON.parse(data.responses)['height'],
       dob: JSON.parse(data.responses)['dob'],
       marital: JSON.parse(data.responses)['marital'],
       natlang: JSON.parse(data.responses)['natlang'],
@@ -44,99 +40,203 @@ var health = {
   }
 };
 
-var ngs = ['1: Extremely uncharacteristic of me', '2: Somewhat uncharacteristic of me', '3: Uncertain', '4: Somewhat characteristic of me', '5: Extremely characteristic of me']
-var NGS = {
+var sspc = ['1: Many, like all of them', '2: Most', '3: About half', '4: A few', '5: None of them']
+var SSPC = {
   type: 'survey-likert',
   questions: [
-    {prompt: "I prefer complex to simple problems.", name:'ngs_01', labels: ngs, required:true},
-    {prompt: "I like to have the responsibility of handling a situation that requires a lot of thinking.", name:'ngs_02', labels: ngs, required:true},
-    {prompt: "Thinking is not my idea of fun.", name:'ngs_03', labels: ngs, required:true},
-    {prompt: "I would rather do something that requires little thought than something that is sure to challenge my thinking abilities.", name:'ngs_04', labels: ngs, required:true},
-    {prompt: "I try to anticipate and avoid situations where there is a likely chance I will have to think in depth about something.", name:'ngs_05', labels: ngs, required:true},
-    {prompt: "I find satisfaction in deliberating hard and for long hours.", name:'ngs_06', labels: ngs, required:true},
-    {prompt: "I only think as hard as I have to.", name:'ngs_07', labels: ngs, required:true},
-    {prompt: "I prefer to think about small daily projects to long term ones.", name:'ngs_08', labels: ngs, required:true},
-    {prompt: "I like tasks that require little thought once I have learned them.", name:'ngs_09', labels: ngs, required:true},
-    {prompt: "The idea of relying on thought to make my way to the top appeals to me.", name:'ngs_10', labels: ngs, required:true},
-    {prompt: "I really enjoy a task that involves coming up with new solutions to problems.", name:'ngs_11', labels: ngs, required:true},
-    {prompt: "Learning new ways to think does not excite me very much.", name:'ngs_12', labels: ngs, required:true},
-    {prompt: "I prefer my life to be filled with puzzles I must solve.", name:'ngs_13', labels: ngs, required:true},
-    {prompt: "The notion of thinking abstractly is appealing to me.", name:'ngs_14', labels: ngs, required:true},
-    {prompt: "I would prefer a task that is intellectual, difficult, and important to one that is somewhat important but does not require much thought.", name:'ngs_15', labels: ngs, required:true},
-    {prompt: "I feel relief rather than satisfaction after completing a task that requires a lot of mental effort.", name:'ngs_16', labels: ngs, required:true},
-    {prompt: "It's enough for me that something gets the job done; I don’t care how or why it works.", name:'ngs_17', labels: ngs, required:true},
-    {prompt: "I usually end up deliberating about issues even when they do not affect me personally.", name:'ngs_18', labels: ngs, required:true}
+    {prompt: "How many politicians are honest with voters?", name:'sspc_01', labels: sspc, required:true},
+    {prompt: "How many politicians are in politics to achieve as much personal gain as possible?", name:'sspc_02', labels: sspc, required:true},
+    ],
+  preamble: 'We are interested in what you think about politicians in Canada. Please indicate your thoughts about the following statements.',
+      on_finish: function(data){
+    jsPsych.data.addProperties({
+      sspc_01: JSON.parse(data.responses)['sspc_01'],
+      sspc_02: JSON.parse(data.responses)['sspc_02']
+    });
+  }
+};
+
+var pas = ['1: Very much disagree', '2: ', '3: ', '4: ', '5: Very much agree']
+var PAS = {
+  type: 'survey-likert',
+  questions: [
+    {prompt: "The politicians in the Canadian parliament need to follow the will of the people.", name:'pas_01', labels: pas, required:true},
+    {prompt: "The people, and not politicians, should make our most important policy decisions.", name:'ngs_pas', labels: pas, required:true},
+    {prompt: "The political differences between the elite and the people are larger than diferences among the people.", name:'pas_03', labels: pas, required:true},
+    {prompt: "I would rather be represented by a citizen than by a specialized politician.", name:'pas_04', labels: pas, required:true},
+    {prompt: "Elected officials talk too much and take too little action.", name:'pas_05', labels: pas, required:true},
+    {prompt: "Politics is ultimately a struggle between good and evil.", name:'pas_06', labels: pas, required:true},
+    {prompt: "What people call compromise in politics is really just selling out on one's principles.", name:'pas_07', labels: pas, required:true},
+    {prompt: "Interest groups have too much influence over political decisions.", name:'pas_08', labels: pas, required:true},
+    {prompt: "In a democracy, it is important to make compromises among differing viewpoints.", name:'pas_09', labels: pas, required:true},
+    {prompt: "It is important to listen to the opinion of other groups.", name:'pas_10', labels: pas, required:true},
+    {prompt: "Diversity limits my freedom.", name:'pas_11', labels: pas, required:true},
+    {prompt: "Politicians should lead rather than follow the people.", name:'pas_12', labels: pas, required:true},
+    {prompt: "Our contry would be governed better if important decisions were left up to successful business people.", name:'pas_13', labels: pas, required:true},
+    {prompt: "Our contry would be governed better if important decisions were left up to independent experts.", name:'pas_14', labels: pas, required:true}
       ],
-  preamble: 'For each of the statements below, please indicate whether or not the statement is characteristic of you or of what you believe. For example, if the statement is extremely uncharacteristic of you or of what you believe about yourself (not at all like you) please select "1". If the statement is extremely characteristic of you or of what you believe about yourself (very much like you) please select "5".',
+  preamble: 'Thanks! Here are some more questions on your political views. Again, we are interested in what you think about politicians in Canada. Please indicate your thoughts about the following statements.',
   on_finish: function(data){
     jsPsych.data.addProperties({
-      ngs_01: JSON.parse(data.responses)['ngs_01'],
-      ngs_02: JSON.parse(data.responses)['ngs_02'],
-      ngs_03: JSON.parse(data.responses)['ngs_03'],
-      ngs_04: JSON.parse(data.responses)['ngs_04'],
-      ngs_05: JSON.parse(data.responses)['ngs_05'],
-      ngs_06: JSON.parse(data.responses)['ngs_06'],
-      ngs_07: JSON.parse(data.responses)['ngs_07'],
-      ngs_08: JSON.parse(data.responses)['ngs_08'],
-      ngs_09: JSON.parse(data.responses)['ngs_09'],
-      ngs_10: JSON.parse(data.responses)['ngs_10'],
-      ngs_11: JSON.parse(data.responses)['ngs_11'],
-      ngs_12: JSON.parse(data.responses)['ngs_12'],
-      ngs_13: JSON.parse(data.responses)['ngs_13'],
-      ngs_14: JSON.parse(data.responses)['ngs_14'],
-      ngs_15: JSON.parse(data.responses)['ngs_15'],
-      ngs_16: JSON.parse(data.responses)['ngs_16'],
-      ngs_17: JSON.parse(data.responses)['ngs_17'],
-      ngs_18: JSON.parse(data.responses)['ngs_18']
+      pas_01: JSON.parse(data.responses)['pas_01'],
+      pas_02: JSON.parse(data.responses)['pas_02'],
+      pas_03: JSON.parse(data.responses)['pas_03'],
+      pas_04: JSON.parse(data.responses)['pas_04'],
+      pas_05: JSON.parse(data.responses)['pas_05'],
+      pas_06: JSON.parse(data.responses)['pas_06'],
+      pas_07: JSON.parse(data.responses)['pas_07'],
+      pas_08: JSON.parse(data.responses)['pas_08'],
+      pas_09: JSON.parse(data.responses)['pas_09'],
+      pas_10: JSON.parse(data.responses)['pas_10'],
+      pas_11: JSON.parse(data.responses)['pas_11'],
+      pas_12: JSON.parse(data.responses)['pas_12'],
+      pas_13: JSON.parse(data.responses)['pas_13'],
+      pas_14: JSON.parse(data.responses)['pas_14']
     });
   }
 };
 
-var edeq_scale = ['0 Days', '1-2 Days', '3-5 Days', '6-7 Days']
-var EDEQ1 = {
+var CONTACT = {
   type:'survey-likert',
   questions:[
-    {prompt: "Have you been deliberately trying to limit the amount of food you eat to influence your weight or shape (whether or not you have succeeded)?", name:'edeq_1', labels: edeq_scale, required:true},
-    {prompt: "Have you gone for long periods of time (e.g., 8 or more waking hours) without eating anything at all in order to influence your weight or shape?", name:'edeq_2', labels: edeq_scale, required:true},
-    {prompt: "Has thinking about food, eating or calories made it very difficult to concentrate on things you are interested in (such as working, following a conversation or reading)?", name:'edeq_3', labels: edeq_scale, required:true},
-    {prompt: "Has thinking about your weight or shape made it very difficult to concentrate on things you are interested in (such as working, following a  conversation or reading)?", name:'edeq_4', labels: edeq_scale, required:true},
-    {prompt: "Have you had a definite fear that you might gain weight?", name:'edeq_5', labels: edeq_scale, required:true},
-    {prompt: "Have you had a strong desire to lose weight?", name:'edeq_6', labels: edeq_scale, required:true},
-    {prompt: "Have you tried to control your weight or shape by making yourself sick (vomit) or taking laxatives?", name:'edeq_7', labels: edeq_scale, required:true},
-    {prompt: "Have you exercised in a driven or compulsive way as a means of controlling your weight, shape or body fat, or to burn off calories?", name:'edeq_8', labels: edeq_scale, required:true},
-    {prompt: "Have you had a sense of having lost control over your eating (at the time that you were eating)?", name:'edeq_9', labels: edeq_scale, required:true},
-    {prompt: "On how many of these days ( i.e. days on which you had a sense of having lost control over your eating) did you eat what other people would regard as an unusually large amount of food in one go", name:'edeq_10', labels: edeq_scale, required:true}
+    {prompt: "How often do you interact with people of Middle-Eastern geographic origin?", name:'contact_01', labels: ['Never', 'Less than once a year', 'Yearly','A few times a year', 'Monthly', 'Weekly', 'Daily'], required:true},
+    {prompt: "Was your contact with people of Middle-Eastern geographic origin friendly?", name:'contact_02', labels: ['Strongly disagree', 'Disagree', 'Somewhat disagree', 'Neutral', 'Somewhat agree', 'Agree', 'Strongly agree'], required:true},
+    {prompt: "Was your contact with people of Middle-Eastern geographic origin unpleasant?", name:'contact_03', labels: ['Strongly disagree', 'Disagree', 'Somewhat disagree', 'Neutral', 'Somewhat agree', 'Agree', 'Strongly agree'], required:true},
+    {prompt: "Did you cooperate well?", name:'contact_04', labels: ['Strongly disagree', 'Disagree', 'Somewhat disagree', 'Neutral', 'Somewhat agree', 'Agree', 'Strongly agree'], required:true},
+    {prompt: "Did you interact as equals?", name:'contact_05', labels: ['Strongly disagree', 'Disagree', 'Somewhat disagree', 'Neutral', 'Somewhat agree', 'Agree', 'Strongly agree'], required:true},
+    {prompt: "Was your contact with people of Middle-Eastern geographic origin negative?", name:'contact_06', labels: ['Strongly disagree', 'Disagree', 'Somewhat disagree', 'Neutral', 'Somewhat agree', 'Agree', 'Strongly agree'], required:true},
+    {prompt: "How many people of Middle-Eastern geographic origin do you know, at last as aquaintances?", name:'contact_07', labels: ['None', 'One', 'Two', 'Three', 'Four', 'Five', 'Six', 'Seven', 'Eight', 'Nine', 'Ten or more'], required:true},
+    {prompt: "How many of your friends are people of Middle-Eastern geographic origin?", name:'contact_08', labels: ['None of my friends', 'One of my friends', 'A few of my friends', 'About half of my friends', 'More than half of my friends', 'Almost all of my friends', 'All of my friends'], required:true},
+    {prompt: "How often do you meet friends of your Middle-Eastern origin friends?", name:'contact_09', labels: ['Never', 'Less than once a year', 'Yearly','A few times a year', 'Monthly', 'Weekly', 'Daily'], required:true}
   ],
-  preamble: 'Thank you for completing the task so far! Please answer the following series of questions as honestly as possible. For this page of questions, on how many days OF THE PAST 7 DAYS...',
+  preamble: 'Here are some questions about your contact with people of Middle-Eastern geographic origin. Please indicate your level of agreement or your answer by clicking on it.',
   on_finish: function(data){
     jsPsych.data.addProperties({
-      EDEQ_1: JSON.parse(data.responses)['edeq_1'],
-      EDEQ_2: JSON.parse(data.responses)['edeq_2'],
-      EDEQ_3: JSON.parse(data.responses)['edeq_3'],
-      EDEQ_4: JSON.parse(data.responses)['edeq_4'],
-      EDEQ_5: JSON.parse(data.responses)['edeq_5'],
-      EDEQ_6: JSON.parse(data.responses)['edeq_6'],
-      EDEQ_7: JSON.parse(data.responses)['edeq_7'],
-      EDEQ_8: JSON.parse(data.responses)['edeq_8'],
-      EDEQ_9: JSON.parse(data.responses)['edeq_9'],
-      EDEQ_10: JSON.parse(data.responses)['edeq_10']
+    contact_01: JSON.parse(data.responses)['contact_01'],
+    contact_02: JSON.parse(data.responses)['contact_02'],
+    contact_03: JSON.parse(data.responses)['contact_03'],
+    contact_04: JSON.parse(data.responses)['contact_04'],
+    contact_05: JSON.parse(data.responses)['contact_05'],
+    contact_06: JSON.parse(data.responses)['contact_06'],
+    contact_07: JSON.parse(data.responses)['contact_07'],
+    contact_08: JSON.parse(data.responses)['contact_08'],
+    contact_09: JSON.parse(data.responses)['contact_09']
     });
   }
 };
 
-var EDEQ2 = {
-  type:'survey-likert',
-  questions:[
-    {prompt: "Has your weight or shape influenced how you think about (judge) yourself as a person?", name:'edeq_11', labels: ['Not at All', 'Slightly', 'Moderately','Markedly'], required:true},
-    {prompt: "If you're paying attention please select 'Moderately' for this question.", name:'catch1', labels: ['Not at All', 'Slightly', 'Moderately','Markedly'], required:true},
-    {prompt: "How dissatisfied have you been with your weight or shape?", name:'edeq_12', labels: ['Not at All', 'Slightly', 'Moderately','Markedly'], required:true}
-  ],
-  preamble: 'OVER THE PAST 7 DAYS...',
-  on_finish: function(data){
+var idnd = ['1: Strongly disagree', '2: Disagree', '3: Somewhat disagree', '4: Neutral', '5: Somewhat agree', '6: Agree', '7: Strongly agree']
+var IDENTITY_NEEDS = {
+  type: 'survey-likert',
+  questions: [
+    {prompt: "I felt welcomed and accepted by people of Middle-Eastern geographic origin members with whom I had contact.", name:'idnd_01', labels: idnd, required:true},
+    {prompt: "I felt that people of Middle-Eastern geographic origin member with whom I had contact saw me as racist or immoral. [recoded]", name:'idnd_02', labels: idnd, required:true},
+    {prompt: "I felt that people of Middle-Eastern geographic origin member with whom I had contact perceived me as competent and intelligent.", name:'idnd_03', labels: idnd, required:true},
+    {prompt: "If you are paying attention, please select 'Agree' for this question", name:'catch_01', labels: idnd, required:true},
+    {prompt: "I felt that people of Middle-Eastern geographic origin member with whom I had contact listened to what I had to say.", name:'idnd_04', labels: idnd, required:true},
+    {prompt: "Contact with people of Middle-Eastern geographic origin left me with the impression that my ingroup was welcomed and accepted by people of Middle-Eastern geographic origin.", name:'idnd_05', labels: idnd, required:true},
+    {prompt: "Contact with people of Middle-Eastern geographic origin left me with the impression that people of Middle-Eastern geographic origin saw my group of geographic origin as racist or immoral. [recoded]", name:'idnd_06', labels: idnd, required:true},
+    {prompt: "I felt that people of Middle-Eastern geographic origin with whom I had contact perceived my group of geographic origin as competent and intelligent.", name:'idnd_07', labels: idnd, required:true},
+    {prompt: "I felt that people of Middle-Eastern geographic origin with whom I had contact listened to what my group of geographic origin had to say.", name:'idnd_08', labels: idnd, required:true}
+    ],
+  preamble: 'Thank you! Here are some more questions about your contact with people of Middle-Eastern geographic origin. Please indicate your level of agreement or your answer by clicking on it.',
+      on_finish: function(data){
     jsPsych.data.addProperties({
-      EDEQ_11: JSON.parse(data.responses)['edeq_11'],
-      catch1: JSON.parse(data.responses)['catch1'],
-      EDEQ_12: JSON.parse(data.responses)['edeq_12']
+      idnd_01: JSON.parse(data.responses)['idnd_01'],
+      idnd_02: JSON.parse(data.responses)['idnd_02'],
+      idnd_03: JSON.parse(data.responses)['idnd_03'],
+      idnd_04: JSON.parse(data.responses)['idnd_04'],
+      idnd_05: JSON.parse(data.responses)['idnd_05'],
+      idnd_06: JSON.parse(data.responses)['idnd_06'],
+      idnd_07: JSON.parse(data.responses)['idnd_07'],
+      idnd_08: JSON.parse(data.responses)['idnd_08'],
+      catch_01: JSON.parse(data.responses)['catch_01']
+    });
+  }
+};
+
+var adig = ['1: Never', '2: Rarely', '3: Occasionally', '4: Sometimes', '5: Frequently', '6: Usually', '7: Always']
+var A_DISC = {
+  type: 'survey-likert',
+  questions: [
+    {prompt: "When I come into contact with members of my own group of origin, we talk about injustices in society regarding people of Middle-Eastern geographic origin.", name:'adig_01', labels: adig, required:true},
+    {prompt: "When I come into contact with members of my own group of origin, we talk about personal experiences with discrimination against people of Middle-Eastern geographic origin.", name:'adig_02', labels: adig, required:true},
+    {prompt: "When I come into contact with members of my own group of origin, we talk about the existence of privilege among members of my own group of origin", name:'adig_03', labels: adig, required:true}
+    ],
+  preamble: 'Thank you! Here are some more questions about what you discuss within your own group of origin regarding people of Middle-Eastern geographic origin. Please indicate your level of agreement or your answer by clicking on it.',
+      on_finish: function(data){
+    jsPsych.data.addProperties({
+      adig_01: JSON.parse(data.responses)['adig_01'],
+      adig_02: JSON.parse(data.responses)['adig_02'],
+      adig_03: JSON.parse(data.responses)['adig_03']
+    });
+  }
+};
+
+var plcs = ['1: Strongly disagree', '2: Disagree', '3: Somewhat disagree', '4: Neutral', '5: Somewhat agree', '6: Agree', '7: Strongly agree']
+var PLCSSJ = {
+  type: 'survey-likert',
+  questions: [
+    {prompt: "I think it is justified that people of my own geographic origin have a higher status than people of Middle-Eastern geographic origin.", name:'plcs_01', labels: plcs, required:true},
+    {prompt: "I think the advantages of people of my own geographic origin compared to people of Middle-Eastern geographic origin are legitimate.", name:'plcs_02', labels: plcs, required:true},
+    {prompt: "In general, relations between people of my own geographic origin and people of Middle-Eastern geographic origin are fair.", name:'plcs_03', labels: plcs, required:true},
+    {prompt: "For people of Middle-Eastern geographic origin, Canada is the best country in the world to live in.", name:'plcs_04', labels: plcs, required:true},
+    {prompt: "Most policies relating to people of Middle-Eastern geographic origin serve the greater good.", name:'plcs_05', labels: plcs, required:true},
+    {prompt: "Everyone regardless of group of origin, has a fair shot at wealth and happiness.", name:'plcs_06', labels: plcs, required:true},
+    {prompt: "If you are paying attention, please select 'Disagree' for this question", name:'catch_02', labels: plcs, required:true},
+    {prompt: "I felt that people of Middle-Eastern geographic origin with whom I had contact perceived my group of geographic origin as competent and intelligent.", name:'plcs_07', labels: plcs, required:true},
+    {prompt: "The Canadian society is set up so that people of my own geographic origin and people of Middle-Eastern geographic origin usually get what they deserve.", name:'plcs_08', labels: plcs, required:true},
+    {prompt: "The political decisions dealing with people of Middle-Eastern geographic origin are as they should be.", name:'plcs_09', labels: plcs, required:true},
+    {prompt: "People of Middle-Eastern geographic origin should obtain much more power in the decision-centers of our society.", name:'plcs_10', labels: plcs, required:true},
+    {prompt: "Institutions of my country should allocate more places to people of Middle-Eastern geographic origin as a form of affirmative action.", name:'plcs_11', labels: plcs, required:true},
+    {prompt: "The state budget should be distributed equally so that the resources that are allocated to people of Middle-Eastern geographic origin are proportional to those that are allocated to people of my own geographic origin.", name:'plcs_12', labels: plcs, required:true}
+    ],
+  preamble: 'Thank you! Here are some more questions asking you to indicate your level of agreement with some proposed statements concerning your thoughts about people of Middle-Eastern geographic origin. Please indicate your level of agreement or your answer by clicking on it.',
+      on_finish: function(data){
+    jsPsych.data.addProperties({
+      plcs_01: JSON.parse(data.responses)['plcs_01'],
+      plcs_02: JSON.parse(data.responses)['plcs_02'],
+      plcs_03: JSON.parse(data.responses)['plcs_03'],
+      plcs_04: JSON.parse(data.responses)['plcs_04'],
+      plcs_05: JSON.parse(data.responses)['plcs_05'],
+      plcs_06: JSON.parse(data.responses)['plcs_06'],
+      plcs_07: JSON.parse(data.responses)['plcs_07'],
+      plcs_08: JSON.parse(data.responses)['plcs_08'],
+      plcs_09: JSON.parse(data.responses)['plcs_09'],
+      plcs_10: JSON.parse(data.responses)['plcs_10'],
+      plcs_11: JSON.parse(data.responses)['plcs_11'],
+      plcs_12: JSON.parse(data.responses)['plcs_12'],
+      catch_02: JSON.parse(data.responses)['catch_02']
+    });
+  }
+};
+
+var wwwp = ['1: Not at all', '2: A bit', '3: Somewhat', '4: Neutral', '5: Moderate', '6: A great deal', '7: Very much']
+var WIWOWP = {
+  type: 'survey-likert',
+  questions: [
+    {prompt: "How willing are you to cooperate with people of Middle-Eastern geographic origin to work for justice for people of Middle-Eastern geographic origin?", name:'wwwp_01', labels: plcs, required:true},
+    {prompt: "How willing are you to protest alongside people of Middle-Eastern geographic origin to work for justice for people of Middle-Eastern geographic origin?", name:'wwwp_02', labels: plcs, required:true},
+    {prompt: "How willing are you to unite with people of Middle-Eastern geographic origin to work for justice for people of Middle-Eastern geographic origin?", name:'wwwp_03', labels: plcs, required:true},
+    {prompt: "Attending meetings or workshops regarding the unequal treatment of people of Middle-Eastern geographic origin.", name:'wwwp_04', labels: plcs, required:true},
+    {prompt: "Writing letters to public officials or other people of influence to protest against the unequal treatment of people of Middle-Eastern geographic origin.", name:'wwwp_05', labels: plcs, required:true},
+    {prompt: "Attending demonstrations, protests or rallies against the unequal treatment of people of Middle-Eastern geographic origin.", name:'wwwp_06', labels: plcs, required:true},
+    {prompt: "Voting for political candidates who support the equal treatment of people of Middle-Eastern geographic origin.", name:'wwwp_07', labels: plcs, required:true},
+    {prompt: "Signing an online/regular petition to support action against the unequal treatment of people of Middle-Eastern geographic origin.", name:'wwwp_08', labels: plcs, required:true},
+    {prompt: "Sharing posts on Facebook to support equality for people of Middle-Eastern geographic origin.", name:'wwwp_09', labels: plcs, required:true}
+    ],
+  preamble: 'Thank you! Here are a last set of questions asking you to indicate your willigness to work with and advocate for people of Middle-Eastern geographic origin. Please indicate your level of agreement or your answer by clicking on it.',
+      on_finish: function(data){
+    jsPsych.data.addProperties({
+      wwwp_01: JSON.parse(data.responses)['wwwp_01'],
+      wwwp_02: JSON.parse(data.responses)['wwwp_02'],
+      wwwp_03: JSON.parse(data.responses)['wwwp_03'],
+      wwwp_04: JSON.parse(data.responses)['wwwp_04'],
+      wwwp_05: JSON.parse(data.responses)['wwwp_05'],
+      wwwp_06: JSON.parse(data.responses)['wwwp_06'],
+      wwwp_07: JSON.parse(data.responses)['wwwp_07'],
+      wwwp_08: JSON.parse(data.responses)['wwwp_08'],
+      wwwp_09: JSON.parse(data.responses)['wwwp_09']
     });
   }
 };
@@ -175,151 +275,6 @@ var EDUC = {
   }
 };
 
-var kirby = {
-  type: 'survey-multi-choice',
-  questions: [
-    {prompt: "Would you rather have $30 tonight or $85 in 14 days?", options: ['$30 tonight', '$85 in 14 days'],  name:'kirby01', required: true, horizontal: true,},
-    {prompt: "Would you rather have $40 tonight or $55 in 25 days?", options: ['$40 tonight', '$55 in 25 days'],  name:'kirby02', required: true, horizontal: true,},
-    {prompt: "Would you rather have $67 tonight or $85 in 35 days?", options: ['$67 tonight', '$85 in 35 days'],  name:'kirby03', required: true, horizontal: true,},
-    {prompt: "Would you rather have $34 tonight or $35 in 43 days?", options: ['$34 tonight', '$35 in 43 days'],  name:'kirby04', required: true, horizontal: true,},
-    {prompt: "Would you rather have $15 tonight or $35 in 10 days?", options: ['$15 tonight', '$35 in 10 days'],  name:'kirby05', required: true, horizontal: true,},
-    {prompt: "Would you rather have $32 tonight or $55 in 20 days?", options: ['$32 tonight', '$55 in 20 days'],  name:'kirby06', required: true, horizontal: true,},
-    {prompt: "Would you rather have $83 tonight or $85 in 35 days?", options: ['$83 tonight', '$85 in 35 days'],  name:'kirby07', required: true, horizontal: true,},
-    {prompt: "Would you rather have $21 tonight or $30 in 75 days?", options: ['$21 tonight', '$30 in 75 days'],  name:'kirby08', required: true, horizontal: true,},
-    {prompt: "Would you rather have $48 tonight or $55 in 45 days?", options: ['$48 tonight', '$55 in 45 days'],  name:'kirby09', required: true, horizontal: true,},
-    {prompt: "Would you rather have $40 tonight or $65 in 70 days?", options: ['$40 tonight', '$65 in 70 days'],  name:'kirby10', required: true, horizontal: true,},
-    {prompt: "Would you rather have $25 tonight or $35 in 25 days?", options: ['$25 tonight', '$35 in 25 days'],  name:'kirby11', required: true, horizontal: true,},
-    {prompt: "Would you rather have $65 tonight or $75 in 50 days?", options: ['$65 tonight', '$75 in 50 days'],  name:'kirby12', required: true, horizontal: true,},
-    {prompt: "Would you rather have $24 tonight or $55 in 10 days?", options: ['$24 tonight', '$55 in 10 days'],  name:'kirby13', required: true, horizontal: true,},
-    {prompt: "Would you rather have $30 tonight or $35 in 20 days?", options: ['$30 tonight', '$35 in 20 days'],  name:'kirby14', required: true, horizontal: true,},
-    {prompt: "Would you rather have $53 tonight or $55 in 55 days?", options: ['$53 tonight', '$55 in 55 days'],  name:'kirby15', required: true, horizontal: true,},
-    {prompt: "Would you rather have $47 tonight or $60 in 50 days?", options: ['$47 tonight', '$60 in 50 days'],  name:'kirby16', required: true, horizontal: true,},
-    {prompt: "Would you rather have $40 tonight or $70 in 20 days?", options: ['$40 tonight', '$70 in 20 days'],  name:'kirby17', required: true, horizontal: true,},
-    {prompt: "Would you rather have $50 tonight or $80 in 70 days?", options: ['$50 tonight', '$80 in 70 days'],  name:'kirby18', required: true, horizontal: true,},
-    {prompt: "Would you rather have $45 tonight or $70 in 35 days?", options: ['$45 tonight', '$70 in 35 days'],  name:'kirby19', required: true, horizontal: true,},
-    {prompt: "Would you rather have $27 tonight or $30 in 35 days?", options: ['$27 tonight', '$30 in 35 days'],  name:'kirby20', required: true, horizontal: true,},
-    {prompt: "Would you rather have $16 tonight or $30 in 35 days?", options: ['$16 tonight', '$30 in 35 days'],  name:'kirby21', required: true, horizontal: true,}
-  ],
-    preamble: 'Here are some scenarios where you can imagine picking between having one monetary reward now, or a greater reward later. Please select which option you would prefer for each choice.',
-    on_finish: function(data){
-        jsPsych.data.addProperties({
-        kirby01: JSON.parse(data.responses)['kirby01'],
-        kirby02: JSON.parse(data.responses)['kirby02'],
-        kirby03: JSON.parse(data.responses)['kirby03'],
-        kirby04: JSON.parse(data.responses)['kirby04'],
-        kirby05: JSON.parse(data.responses)['kirby05'],
-        kirby06: JSON.parse(data.responses)['kirby06'],
-        kirby07: JSON.parse(data.responses)['kirby07'],
-        kirby08: JSON.parse(data.responses)['kirby08'],
-        kirby09: JSON.parse(data.responses)['kirby09'],
-        kirby10: JSON.parse(data.responses)['kirby10'],
-        kirby11: JSON.parse(data.responses)['kirby11'],
-        kirby12: JSON.parse(data.responses)['kirby12'],
-        kirby13: JSON.parse(data.responses)['kirby13'],
-        kirby14: JSON.parse(data.responses)['kirby14'],
-        kirby15: JSON.parse(data.responses)['kirby15'],
-        kirby16: JSON.parse(data.responses)['kirby16'],
-        kirby17: JSON.parse(data.responses)['kirby17'],
-        kirby18: JSON.parse(data.responses)['kirby18'],
-        kirby19: JSON.parse(data.responses)['kirby19'],
-        kirby20: JSON.parse(data.responses)['kirby20'],
-        kirby21: JSON.parse(data.responses)['kirby21']
-    });
-  }
-};
-
-var bsqr_scale = ['Never', 'Rarely', 'Sometimes', 'Often', 'Very Often', 'Always']
-var BSQR = {
-  type:'survey-likert',
-  questions:[
-    {prompt: "Have you been so worried about your shape that you have been feeling that you ought to diet?", name:'bsqr_1', labels: bsqr_scale, required:true},
-    {prompt: "Has being with thin people made you feel self-conscious about	your shape?", name:'bsqr_2', labels: bsqr_scale, required:true},
-    {prompt: "Have you ever noticed the shape of other people and felt that your own shape compared unfavourably?", name:'bsqr_3', labels: bsqr_scale, required:true},
-    {prompt: "Has being undressed, such as when taking a bath, made you feel fat?", name:'bsqr_4', labels: bsqr_scale, required:true},
-    {prompt: "Has eating sweets, cakes, or other high calorie food made you feel fat?", name:'bsqr_5', labels: bsqr_scale, required:true},
-    {prompt: "Have you felt excessively large and rounded?", name:'bsqr_6', labels: bsqr_scale, required:true},
-    {prompt: "Have you felt ashamed of your body?", name:'bsqr_7', labels: bsqr_scale, required:true},
-    {prompt: "Has worry about your shape made you diet?", name:'bsqr_8', labels: bsqr_scale, required:true},
-    {prompt: "Have you thought that you are the shape you are because you lack self-control?", name:'bsqr_9', labels: bsqr_scale, required:true},
-    {prompt: "Have you worried about other people seeing rolls of fat around your waist and stomach?", name:'bsqr_10', labels: bsqr_scale, required:true},
-    {prompt: "Have you felt that it is not fair that other people are thinner than you?", name:'bsqr_11', labels: bsqr_scale, required:true},
-    {prompt: "If you're paying attention to this question, please select 'Rarely'. ", name:'catch2', labels: bsqr_scale, required:true},
-    {prompt: "Has seeing your reflection (e.g., in a mirror or shop window) made you feel bad about your shape?", name:'bsqr_12', labels: bsqr_scale, required:true},
-    {prompt: "Have you been particularly self-conscious about your shape when in the company of other people?", name:'bsqr_13', labels: bsqr_scale, required:true},
-    {prompt: "Has worry about your shape made you feel you ought to exercise?", name:'bsqr_14', labels: bsqr_scale, required:true}
-  ],
-  preamble: 'We would like to know how you have been feeling about your appearance over THE PAST TWO WEEKS. Please read each question and select the appropriate option. Please answer all the questions.',
-  on_finish: function(data){
-    jsPsych.data.addProperties({
-      BSQR_1: JSON.parse(data.responses)['bsqr_1'],
-      BSQR_2: JSON.parse(data.responses)['bsqr_2'],
-      BSQR_3: JSON.parse(data.responses)['bsqr_3'],
-      BSQR_4: JSON.parse(data.responses)['bsqr_4'],
-      BSQR_5: JSON.parse(data.responses)['bsqr_5'],
-      BSQR_6: JSON.parse(data.responses)['bsqr_6'],
-      BSQR_7: JSON.parse(data.responses)['bsqr_7'],
-      BSQR_8: JSON.parse(data.responses)['bsqr_8'],
-      BSQR_9: JSON.parse(data.responses)['bsqr_9'],
-      BSQR_10: JSON.parse(data.responses)['bsqr_10'],
-      BSQR_11: JSON.parse(data.responses)['bsqr_11'],
-      catch2: JSON.parse(data.responses)['catch2'],
-      BSQR_12: JSON.parse(data.responses)['bsqr_12'],
-      BSQR_13: JSON.parse(data.responses)['bsqr_13'],
-      BSQR_14: JSON.parse(data.responses)['bsqr_14']
-    });
-  }
-};
-
-var bsi_scale = ['Not at All', 'A Little Bit', 'Moderately', 'Quite a Bit', 'Extremely']
-var BSI = {
-  type:'survey-likert',
-  questions:[
-    {prompt: "Faintness or dizzinnes", name:'bsi_1', labels: bsi_scale, required:true},
-    {prompt: "Feeling no interest in things", name:'bsi_2', labels: bsi_scale, required:true},
-    {prompt: "Nervousness or shakiness inside", name:'bsi_3', labels: bsi_scale, required:true},
-    {prompt: "Pains in heart or chest", name:'bsi_4', labels: bsi_scale, required:true},
-    {prompt: "Feeling lonely", name:'bsi_5', labels: bsi_scale, required:true},
-    {prompt: "Feeling tense or keyed up", name:'bsi_6', labels: bsi_scale, required:true},
-    {prompt: "Nausea or upset stomach", name:'bsi_7', labels: bsi_scale, required:true},
-    {prompt: "Feeling blue", name:'bsi_8', labels: bsi_scale, required:true},
-    {prompt: "If you're paying attention, please select 'Not at All' for this question.", name:'catch3', labels: bsi_scale, required:true},
-    {prompt: "Suddenly scared for no reason", name:'bsi_9', labels: bsi_scale, required:true},
-    {prompt: "Trouble catching your breath", name:'bsi_10', labels: bsi_scale, required:true},
-    {prompt: "Feelings of worthlessness", name:'bsi_11', labels: bsi_scale, required:true},
-    {prompt: "Spells of terror or panic", name:'bsi_12', labels: bsi_scale, required:true},
-    {prompt: "Numbness or tingling in parts of your body", name:'bsi_13', labels: bsi_scale, required:true},
-    {prompt: "Feeling hopeless about the future", name:'bsi_14', labels: bsi_scale, required:true},
-    {prompt: "Feeling so restless you couldn't sit still", name:'bsi_15', labels: bsi_scale, required:true},
-    {prompt: "Feeling weak in parts of your body", name:'bsi_16', labels: bsi_scale, required:true},
-    {prompt: "Thoughts of ending your life", name:'bsi_17', labels: bsi_scale, required:true},
-    {prompt: "Feeling fearful", name:'bsi_18', labels: bsi_scale, required:true}
-  ],
-  preamble: 'Please read each sentence carefully, and choose the option that best describes how much that problem has distressed or bothered you during the PAST 7 DAYS INCLUDING TODAY.',
-  on_finish: function(data){
-    jsPsych.data.addProperties({
-      BSI_1: JSON.parse(data.responses)['bsi_1'],
-      BSI_2: JSON.parse(data.responses)['bsi_2'],
-      BSI_3: JSON.parse(data.responses)['bsi_3'],
-      BSI_4: JSON.parse(data.responses)['bsi_4'],
-      BSI_5: JSON.parse(data.responses)['bsi_5'],
-      BSI_6: JSON.parse(data.responses)['bsi_6'],
-      BSI_7: JSON.parse(data.responses)['bsi_7'],
-      BSI_8: JSON.parse(data.responses)['bsi_8'],
-      catch3: JSON.parse(data.responses)['catch3'],
-      BSI_9: JSON.parse(data.responses)['bsi_9'],
-      BSI_10: JSON.parse(data.responses)['bsi_10'],
-      BSI_11: JSON.parse(data.responses)['bsi_11'],
-      BSI_12: JSON.parse(data.responses)['bsi_12'],
-      BSI_13: JSON.parse(data.responses)['bsi_13'],
-      BSI_14: JSON.parse(data.responses)['bsi_14'],
-      BSI_15: JSON.parse(data.responses)['bsi_15'],
-      BSI_16: JSON.parse(data.responses)['bsi_16'],
-      BSI_17: JSON.parse(data.responses)['bsi_17'],
-      BSI_18: JSON.parse(data.responses)['bsi_18']
-    });
-  }
-};
-
 var gender_options = ["Female &nbsp &nbsp", "Male &nbsp &nbsp", "Transgender &nbsp &nbsp", "Non-Binary &nbsp &nbsp"];
 var ethnicity_options = ["American Indian or Alaskan Native  &nbsp &nbsp", "Native Hawaiian or Other Pacific Islander  &nbsp &nbsp", "Asian  &nbsp &nbsp", "Hispanic or Latino or Spanish Origin of any race  &nbsp &nbsp", "Black or African American  &nbsp &nbsp", "Middle Eastern or North African  &nbsp &nbsp", "White or Caucasian  &nbsp &nbsp", "I would rather not answer &nbsp &nbsp"];
 var education_options = ["Elementary School  &nbsp &nbsp", "Junior High School  &nbsp &nbsp", "High School  &nbsp &nbsp", "CEGEP, non-university college, trade school or equivalent  &nbsp &nbsp", "Undergraduate degree  &nbsp &nbsp", "Graduate degree  &nbsp &nbsp", "Professional degree (i.e., Law School, Medical School, Dentistry) &nbsp &nbsp"];
@@ -345,103 +300,72 @@ var demo2 = {
   }
 };
 
-var SOC = {
+var pre_well = {
+    type: 'html-slider-response',
+    stimulus: '<p>Your Pre-Pandemic Wellbeing</p>',
+    labels: ['0: very poor', '100: very good'],
+    slider_width: 500,
+    require_movement: true, 
+    prompt: "<p>Please rate your general wellbeing <b>before</b> the onset of the pandemic</p>" 
+};
+
+var contrac_prob = {
+    type: 'html-slider-response',
+    stimulus: '<p>Your likelihood of catching the novel coronavirus</p>',
+    labels: ['0: very unlikely', '100: certain'],
+    slider_width: 500,
+    require_movement: true, 
+    prompt: "<p>Please rate your <b>percieved likelihood</b> of contracting the novel coronavirus </p>" 
+};
+
+var cur_well = {
+    type: 'html-slider-response',
+    stimulus: '<p>You Current Wellbeing</p>',
+    labels: ['0: very poor', '100: very good'],
+    slider_width: 500,
+    require_movement: true, 
+    prompt: "<p>Please rate your <b>current</b> general wellbeing </p>" 
+};
+
+var lsns = ['None', 'One', 'Two', 'Three or four', 'Five to eight', 'Eight or more']
+var lsns_fam = {
   type:'survey-likert',
   questions:[
-    {prompt: "How many times have you used social media in the past month?", name:'soc_1', labels: ['Less than once a week', 'Less than once a day', 'Two to three times a day','Four to five times a day', 'At least six times a day'], required:true},
-    {prompt: "How much time are you online on social media every day?", name:'soc_2', labels: ['Less than 30 minutes', 'Between 31 minutes and 2 hours', 'Between 2 and 6 hours', 'Between 6 and 12 hours', '12 hours or more'], required:true},
-    {prompt: "How much time are you actually spending on social media every day?", name:'soc_3', labels: ['Less than 30 minutes', 'Between 31 minutes to 60 minutes', 'Between 1 and 2 hours', 'Between 2 and 4 hours', '5 hours or more'], required:true},
-    {prompt: "How many years have passed since you became active on social media?", name:'soc_4', labels: ['Less than 3 years', 'Between 4 and 5 years', 'Between 6 and 7 years', 'Between 8 and 9 years', '10 or more years'], required:true},
-    {prompt: "How many friends do you have on social media?", name:'soc_5', labels: ['Less than 50 friends', '51 to 100 friends', '101 to 150 friends', '151 to 200 friends', 'More than 200 friends'], required:true}
+    {prompt: "How many relatives do you see or hear from at least once a month?", name:'lsns_fam_1', labels: lsns, required:true},
+    {prompt: "How many relatives do you feel close to such that you could call on them for help?", name:'lsns_fam_2', labels: lsns, required:true},
+    {prompt: "How many relatives do you feel at ease with that you can talk about private matters?", name:'lsns_fam_3', labels: lsns, required:true}
   ],
-  preamble: 'Below are some questions concerning the your social media habits. For these questions, consider all your activity on social media platforms as a whole over THE PAST 6 MONTHS.',
+  preamble: '<br> Considering the people to whom you are related either by birth or marriage:',
   on_finish: function(data){
     jsPsych.data.addProperties({
-      soc_1: JSON.parse(data.responses)['soc_1'],
-      soc_2: JSON.parse(data.responses)['soc_2'],
-      soc_3: JSON.parse(data.responses)['soc_3'],
-      soc_4: JSON.parse(data.responses)['soc_4'],
-      soc_5: JSON.parse(data.responses)['soc_5']
+      lsns_fam_1: JSON.parse(data.responses)['lsns_fam_1'],
+      lsns_fam_2: JSON.parse(data.responses)['lsns_fam_2'],
+      lsns_fam_3: JSON.parse(data.responses)['lsns_fam_3']
     });
   }
 };
 
-var screenweek = {
-  type: 'survey-text',
-  questions: [
-    {prompt: "On the average weekday, how much time do you use television as the primary activity?", placeholder: "HH:MM, ex: 1:15", name: 'tv_01'},
-    {prompt: "On the average weekday, how much time do you use TV-connected devices (e.g. streaming devices, video game consoles) as the primary activity?", placeholder: "HH:MM", name: 'dev_01'},
-    {prompt: "On the average weekday, how much time do you use your laptop or computer as the primary activity?", placeholder: "HH:MM", name: 'lap_01'},
-    {prompt: "On the average weekday, how much time do you use your smartphone as the primary activity?", placeholder: "HH:MM", name: 'pho_01'},
-    {prompt: "On the average weekday, how much time do you use your tablet as the primary activity?", placeholder: "HH:MM", name: 'tab_01'}
+var lsns_fri = {
+  type:'survey-likert',
+  questions:[
+    {prompt: "How many friends do you see or hear from at least once a month?", name:'lsns_fri_1', labels: lsns, required:true},
+    {prompt: "How many friends do you feel close to such that you could call on them for help?", name:'lsns_fri_2', labels: lsns, required:true},
+    {prompt: "How many friends do you feel at ease with that you can talk about private matters?", name:'lsns_fri_3', labels: lsns, required:true}
   ],
-  preamble: 'The next few sets of questions are about your time looking at screens. Please enter your data as "HH:MM". Thinking of an average WEEKDAY (from when you wake up until you go to sleep) OVER THE PAST 6 MONTHS, how much time do you spend using each of the following types of screen as the primary activity? Please answer using both HOURS and MINUTES like so: 02:45 for Two hours and Forty-Five minutes. If you spend no time on an activity, you may enter 00:00. For the following set of questions, primary activity is defined as the main activity you are engaged in rather than using a television/other screen in the background while performing another activity such as cooking or exercising.',
+  preamble: '<br> Considering all of your friends including those who live in your neighbourhood:',
   on_finish: function(data){
     jsPsych.data.addProperties({
-      TV01: JSON.parse(data.responses)['tv_01'],
-      DEV01: JSON.parse(data.responses)['dev_01'],
-      LAP01: JSON.parse(data.responses)['lap_01'],
-      PHO01: JSON.parse(data.responses)['pho_01'],
-      TAB01: JSON.parse(data.responses)['tab_01']
+      lsns_fri_1: JSON.parse(data.responses)['lsns_fri_1'],
+      lsns_fri_2: JSON.parse(data.responses)['lsns_fri_2'],
+      lsns_fri_3: JSON.parse(data.responses)['lsns_fri_3']
     });
   }
 };
 
-var screennight = {
-  type: 'survey-text',
-  questions: [
-    {prompt: "On the average weeknight, how much time do you use television as the primary activity?", placeholder: "HH:MM, ex: 1:15", name: 'tv_02'},
-    {prompt: "On the average weeknight, how much time do you use TV-connected devices (e.g. streaming devices, video game consoles) as the primary activity?", placeholder: "HH:MM", name: 'dev_02'},
-    {prompt: "On the average weeknight, how much time do you use your laptop or computer as the primary activity?", placeholder: "HH:MM", name: 'lap_02'},
-    {prompt: "On the average weeknight, how much time do you use your smartphone as the primary activity?", placeholder: "HH:MM", name: 'pho_02'},
-    {prompt: "On the average weeknight, how much time do you use your tablet as the primary activity?", placeholder: "HH:MM", name: 'tab_02'}
-  ],
-  preamble: 'Thinking of an average WEEKNIGHT (from when you return from work until you go to sleep) OVER THE PAST 6 MONTHS, how much time do you spend using each of the following types of screen as the primary activity? Please answer using both HOURS and MINUTES like so: 02:45 for Two hours and Forty-Five minutes. If you spend no time on an activity, you may enter 00:00. For the following set of questions, primary activity is defined as the main activity you are engaged in rather than using a television/other screen in the background while performing another activity such as cooking or exercising.',
-  on_finish: function(data){
-    jsPsych.data.addProperties({
-      TV02: JSON.parse(data.responses)['tv_02'],
-      DEV02: JSON.parse(data.responses)['dev_02'],
-      LAP02: JSON.parse(data.responses)['lap_02'],
-      PHO02: JSON.parse(data.responses)['pho_02'],
-      TAB02: JSON.parse(data.responses)['tab_02']
-    });
-  }
+questionnaires_pre = {
+  timeline: [demo1, demo2, health, SESincome, EDUC],
 };
 
-var screenwknd = {
-  type: 'survey-text',
-  questions: [
-    {prompt: "On the average weekend day, how much time do you use television as the primary activity?", placeholder: "HH:MM, ex: 1:15", name: 'tv_03'},
-    {prompt: "On the average weekend day, how much time do you use TV-connected devices (e.g. streaming devices, video game consoles) as the primary activity?", placeholder: "HH:MM", name: 'dev_03'},
-    {prompt: "On the average weekend day, how much time do you use your laptop or computer as the primary activity?", placeholder: "HH:MM", name: 'lap_03'},
-    {prompt: "On the average weekend day, how much time do you use your smartphone as the primary activity?", placeholder: "HH:MM", name: 'pho_03'},
-    {prompt: "On the average weekend day, how much time do you use your tablet as the primary activity?", placeholder: "HH:MM", name: 'tab_03'}
-  ],
-  preamble: 'Thinking of an average WEEKEND DAY (Saturday or Sunday, from when you wake up until you go to sleep) OVER THE PAST 6 MONTHS, how much time do you spend using each of the following types of screen as the primary activity? Please answer using both HOURS and MINUTES like so: 02:45 for Two hours and Forty-Five minutes. If you spend no time on an activity, you may enter 00:00. For the following set of questions, primary activity is defined as the main activity you are engaged in rather than using a television/other screen in the background while performing another activity such as cooking or exercising.',
-  on_finish: function(data){
-    jsPsych.data.addProperties({
-      TV03: JSON.parse(data.responses)['tv_03'],
-      DEV03: JSON.parse(data.responses)['dev_03'],
-      LAP03: JSON.parse(data.responses)['lap_03'],
-      PHO03: JSON.parse(data.responses)['pho_03'],
-      TAB03: JSON.parse(data.responses)['tab_03']
-    });
-  }
-};
-
-var screensec = {
-  type: 'survey-text',
-  questions: [
-    {prompt: "Thinking about a regular weekday (24 hours), on average, OVER THE PAST 6 MONTHS, how many hours over the course of the whole day are you exposed to background screen use? For example, if you exercise in the morning for one hour while watching the TV news, you use your smartphone for one hour while eating lunch and an additional 30 minutes while eating dinner, you would estimate that you are exposed to 2 hours and 30 minutes of background screen use per day.", placeholder: "HH:MM", name: 'Wedsec'},
-    {prompt: "Now we want to ask about background screen use during the evening specifically. On average, how many hours per evening (24 hours) (Monday through Friday) OVER THE PAST 6 MONTHS, are you exposed to background screen use from when you return from work until you go to sleep?", placeholder: "HH:MM", name: 'Wnisec'},
-    {prompt: "Now we want to ask about background screen use during the weekend. Thinking about a regular weekend day (24 hours) (Saturday or Sunday), OVER THE PAST 6 MONTHS, on average, how many hours over the course of the whole day (from when you wake up until you go to sleep) are you exposed to background screen use?", placeholder: "HH:MM", name: 'Wknsec'}
-  ],
-  preamble: 'Thank you! Only three last questions about screen time. For the following set of questions, background screen use is defined as the use of a television or another screen near you while performing other activities such as exercising, cooking, and interacting with family/friends. Please answer each question using both HOURS and MINUTES like so: 02:45 for Two hours and Forty-Five minutes. If you spend no time on an activity, you may enter 00:00.',
-  on_finish: function(data){
-    jsPsych.data.addProperties({
-      WEDSEC: JSON.parse(data.responses)['Wedsec'],
-      WNISEC: JSON.parse(data.responses)['Wnisec'],
-      WKNSEC: JSON.parse(data.responses)['Wknsec']
-    });
-  }
+questionnaires_post = {
+  timeline: [sspc, pas, CONTACT, idnd, idig, adig, plcs, wwwp, pre_well, contrect_prob, cur_well, lsns, lsns_fri],
 };
