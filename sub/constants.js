@@ -1,7 +1,7 @@
 // SETUP CONSTANTS FOR BODY IMAGE TASK //
 
 var subject_id = jsPsych.randomization.randomID(15); //random 15 digit id
-var cond = _.sample([1]) // random condition; 0 = stable; 1 = decreasing
+var cond = _.sample([0,1]) // random condition; 0 = stable; 1 = decreasing
 
 jsPsych.data.addProperties({ // add random data to file
   subject: subject_id,
