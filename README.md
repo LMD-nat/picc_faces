@@ -1,9 +1,6 @@
 # Immigration Study
 PICC Immigration study with faces
 
-## Study Background
-https://youtu.be/ZIa4qJoYkQI
-
 ## Validation
 We ran a validation study with 100 participants to determine which faces from a predetermined set were most often rated as "Middle-Eastern" and "Caucasian". 
 
