@@ -9,13 +9,13 @@ var pavlovia_finish = {
 	command: "finish"
 	};
 
-var timeline = [pavlovia_init, consent, fullscreen, welcome, demo1, demo2, health, SOC, screenweek, screennight, screenwknd, screensec, SESincome, EDUC, NGS, kirby, selfchoice, selfjudge, i1, ptrials, i2]
+var timeline = [pavlovia_init, consent, fullscreen, welcome, questionnaires_pre, selfchoice, selfjudge, i1, ptrials, i2]
 for (i in _.range(numblocks)){
   timeline.push(block);
   timeline.push(trials);
 };
 
-timeline.push(end, selfjudge2, instself, selfchoice2, EDEQ1, EDEQ2, BSQR, BSI, debrief, pavlovia_finish);
+timeline.push(end, selfjudge2, instself, selfchoice2, questionnaires_post, debrief, pavlovia_finish);
 
 var allimages = images;
 // run
@@ -25,7 +25,7 @@ var allimages = images;
     show_preload_progress_bar: true,
 		on_finish: function(data){
 			//jsPsych.data.get().localSave('csv','TEST_PICCBI_'+subject_id+'_'+cond+'.csv'); // download locally if piloting
-			document.body.innerHTML = '<p> Please wait. You will be redirected back to Prolific in a few moments.</p>'
-      setTimeout(function () { location.href = "https://app.prolific.co/submissions/complete?cc=F0B109B4" }, 10000) // send back to Prolific once study is online
+			document.body.innerHTML = '<p> All done! You can now close this page! </p>'
+      //setTimeout(function () { location.href = "https://app.prolific.co/submissions/complete?cc=F0B109B4" }, 10000) // send back to Prolific once study is online
 		}
 });
