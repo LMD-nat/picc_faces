@@ -40,6 +40,8 @@ var health = {
   }
 };
 
+// Short scale of political cynicism (Aichholzer & Kritzinger, 2016)
+
 var sspc = ['1: Many, like all of them', '2: Most', '3: About half', '4: A few', '5: None of them']
 var SSPC = {
   type: 'survey-likert',
@@ -56,6 +58,7 @@ var SSPC = {
   }
 };
 
+// Populist attitude scale. Akkerman et al., 2014, adapted according to recommendations by Castanho Silva et al. (2019)
 var pas = ['1: Very much disagree', '2: ', '3: ', '4: ', '5: Very much agree']
 var PAS = {
   type: 'survey-likert',
@@ -96,6 +99,8 @@ var PAS = {
   }
 };
 
+/ ICQ: Intergroup contact
+
 var CONTACT = {
   type:'survey-likert',
   questions:[
@@ -124,6 +129,8 @@ var CONTACT = {
     });
   }
 };
+
+/ ICQ: Acceptance and empowerment
 
 var idnd = ['1: Strongly disagree', '2: Disagree', '3: Somewhat disagree', '4: Neutral', '5: Somewhat agree', '6: Agree', '7: Strongly agree']
 var IDENTITY_NEEDS = {
@@ -155,6 +162,7 @@ var IDENTITY_NEEDS = {
   }
 };
 
+/ ICQ: Addressed discrimination
 var adig = ['1: Never', '2: Rarely', '3: Occasionally', '4: Sometimes', '5: Frequently', '6: Usually', '7: Always']
 var A_DISC = {
   type: 'survey-likert',
@@ -173,6 +181,7 @@ var A_DISC = {
   }
 };
 
+/ ICQ: Perceived legitimacy of differences
 var plcs = ['1: Strongly disagree', '2: Disagree', '3: Somewhat disagree', '4: Neutral', '5: Somewhat agree', '6: Agree', '7: Strongly agree']
 var PLCSSJ = {
   type: 'survey-likert',
@@ -211,6 +220,7 @@ var PLCSSJ = {
   }
 };
 
+/ ICQ: Support for social change
 var wwwp = ['1: Not at all', '2: A bit', '3: Somewhat', '4: Neutral', '5: Moderate', '6: A great deal', '7: Very much']
 var WIWOWP = {
   type: 'survey-likert',
@@ -300,33 +310,6 @@ var demo2 = {
   }
 };
 
-var pre_well = {
-    type: 'html-slider-response',
-    stimulus: '<p>Your Pre-Pandemic Wellbeing</p>',
-    labels: ['0: very poor', '100: very good'],
-    slider_width: 500,
-    require_movement: true, 
-    prompt: "<p>Please rate your general wellbeing <b>before</b> the onset of the pandemic</p>" 
-};
-
-var contrac_prob = {
-    type: 'html-slider-response',
-    stimulus: '<p>Your likelihood of catching the novel coronavirus</p>',
-    labels: ['0: very unlikely', '100: certain'],
-    slider_width: 500,
-    require_movement: true, 
-    prompt: "<p>Please rate your <b>percieved likelihood</b> of contracting the novel coronavirus </p>" 
-};
-
-var cur_well = {
-    type: 'html-slider-response',
-    stimulus: '<p>You Current Wellbeing</p>',
-    labels: ['0: very poor', '100: very good'],
-    slider_width: 500,
-    require_movement: true, 
-    prompt: "<p>Please rate your <b>current</b> general wellbeing </p>" 
-};
-
 var lsns = ['None', 'One', 'Two', 'Three or four', 'Five to eight', 'Eight or more']
 var lsns_fam = {
   type:'survey-likert',
@@ -367,5 +350,5 @@ questionnaires_pre = {
 };
 
 questionnaires_post = {
-  timeline: [sspc, pas, CONTACT, idnd, idig, adig, plcs, wwwp, pre_well, contrect_prob, cur_well, lsns, lsns_fri],
+  timeline: [sspc, pas, CONTACT, idnd, idig, adig, plcs, wwwp, lsns, lsns_fri],
 };
