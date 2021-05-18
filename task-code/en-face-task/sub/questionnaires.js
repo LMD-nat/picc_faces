@@ -137,12 +137,12 @@ var IDENTITY_NEEDS = {
   type: 'survey-likert',
   questions: [
     {prompt: "I felt welcomed and accepted by people of Middle-Eastern geographic origin members with whom I had contact.", name:'idnd_01', labels: idnd, required:true},
-    {prompt: "I felt that people of Middle-Eastern geographic origin member with whom I had contact saw me as racist or immoral. [recoded]", name:'idnd_02', labels: idnd, required:true},
+    {prompt: "I felt that people of Middle-Eastern geographic origin member with whom I had contact saw me as racist or immoral.", name:'idnd_02', labels: idnd, required:true},
     {prompt: "I felt that people of Middle-Eastern geographic origin member with whom I had contact perceived me as competent and intelligent.", name:'idnd_03', labels: idnd, required:true},
     {prompt: "If you are paying attention, please select 'Agree' for this question", name:'catch_01', labels: idnd, required:true},
     {prompt: "I felt that people of Middle-Eastern geographic origin member with whom I had contact listened to what I had to say.", name:'idnd_04', labels: idnd, required:true},
     {prompt: "Contact with people of Middle-Eastern geographic origin left me with the impression that my ingroup was welcomed and accepted by people of Middle-Eastern geographic origin.", name:'idnd_05', labels: idnd, required:true},
-    {prompt: "Contact with people of Middle-Eastern geographic origin left me with the impression that people of Middle-Eastern geographic origin saw my group of geographic origin as racist or immoral. [recoded]", name:'idnd_06', labels: idnd, required:true},
+    {prompt: "Contact with people of Middle-Eastern geographic origin left me with the impression that people of Middle-Eastern geographic origin saw my group of geographic origin as racist or immoral.", name:'idnd_06', labels: idnd, required:true},
     {prompt: "I felt that people of Middle-Eastern geographic origin with whom I had contact perceived my group of geographic origin as competent and intelligent.", name:'idnd_07', labels: idnd, required:true},
     {prompt: "I felt that people of Middle-Eastern geographic origin with whom I had contact listened to what my group of geographic origin had to say.", name:'idnd_08', labels: idnd, required:true}
     ],
