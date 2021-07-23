@@ -1,0 +1,31 @@
+> print(m)
+Generalized linear mixed model fit by maximum likelihood (Adaptive
+  Gauss-Hermite Quadrature, nAGQ = 0) [glmerMod]
+ Family: binomial  ( logit )
+Formula: simresp ~ (condition + trial0 + size0)^3 + (trial0 | id)
+   Data: SimData
+      AIC       BIC    logLik  deviance  df.resid 
+ 52570.39  52680.20 -26274.20  52548.39    159989 
+Random effects:
+ Groups Name        Std.Dev. Corr
+ id     (Intercept)  0.7578      
+        trial0      34.4764  0.63
+Number of obs: 160000, groups:  id, 200
+Fixed Effects:
+            (Intercept)               condition1                   trial0  
+              -10.78444                  1.70393                  0.62773  
+                  size0        condition1:trial0         condition1:size0  
+               15.35371                  0.83663                 -2.56024  
+           trial0:size0  condition1:trial0:size0  
+                0.03909                  3.72125  
+> LOR = -10.78444 + 3.72125 
+> anova(m)
+Analysis of Variance Table
+                       npar  Sum Sq Mean Sq    F value
+condition                 1     2.7     2.7     2.7099
+trial0                    1     0.5     0.5     0.5167
+size0                     1 23618.3 23618.3 23618.3204
+condition:trial0          1     0.5     0.5     0.4825
+condition:size0           1    47.3    47.3    47.3105
+trial0:size0              1    33.4    33.4    33.4165
+condition:trial0:size0    1    33.4    33.4    33.4390
